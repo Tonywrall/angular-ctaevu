@@ -1,0 +1,35 @@
+<form [formGroup]="dateRangeForm" (ngSubmit)="onFormSubmit()">
+
+  <mat-form-field>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Da" required formControlName="fromDate">
+      <input matEndDate placeholder="A" required formControlName="toDate">
+    </mat-date-range-input>
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <!-- Invalid Date Messages -->
+    <mat-error *ngIf="dateRangeForm.controls.fromDate.hasError('matStartDateInvalid')">Data inizio non valida</mat-error>
+    <mat-error *ngIf="dateRangeForm.controls.toDate.hasError('matEndDateInvalid')">Data fine non valida</mat-error>
+    
+  
+
+    <!-- Required Date Messages -->
+    <mat-error *ngIf="dateRangeForm.controls.fromDate.errors?.required">From Date Required</mat-error>
+    <mat-error *ngIf="dateRangeForm.controls.toDate.errors?.required">To Date Required</mat-error>
+    
+
+  </mat-form-field>
+
+  <mat-error *ngIf="dateRangeForm.hasError('invalidDateRange')">Range non valido o hai inserito una data nel futuro</mat-error>
+
+  <p>Selected Date Range: {{dateRangeForm.value | json}}</p>
+
+  <button>Submit</button>
+
+</form>
+
+<!-- Copyright 2023 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at https://angular.io/license -->
